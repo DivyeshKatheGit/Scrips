@@ -1,0 +1,547 @@
+*
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #bbbbbb;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #bbbbbb;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #bbbbbb;
+}
+
+.app
+{
+  width: 100%;
+  height: 100vh;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 500;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+/*app header*/
+.app__header
+{
+  width: 100%;
+  height: 7vh;
+  background-color: #ffffff;
+  padding: 0 180px;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.app__header .brand__logo img
+{
+  width: 50px;
+  height: 50px;
+  margin-top: 10px;
+}
+
+.app__header .brand__name p
+{
+  font-size: 16px;
+  font-weight: 700;
+  font-size: 30px;
+  margin: 0 30px 0 20px;
+  color: #404040;
+}
+
+.app__header .stock__search
+{
+  width: 400px;
+  height: 75%;
+  border: 1px solid #cccccc;
+  border-radius: 10px;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.app__header .stock__search .stock__search__icon
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 3px 0 5px;
+}
+
+.app__header .stock__search .stock__search__icon img
+{
+  width: 24px;
+  height: 24px;
+}
+
+.app__header .stock__search input
+{
+  border: none;
+  outline: none;
+  /* background-color: #404040; */
+  width: 80%;
+  height: 80%;
+  padding-left: 2px;
+  color: #404040;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.app__header .app__menu
+{
+  display: flex;
+  margin-left: 20px;
+}
+
+.app__header .app__menu span
+{
+  font-size: 14px;
+  margin: 0 10px;
+  font-weight: 700;
+  color: #404040;
+  cursor: pointer;
+}
+
+/*app body*/
+.app__body
+{
+  width: 100%;
+  height: 88vh;
+  background-color: #ffffff;
+  padding: 0 240px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app__body .app__body__left
+{
+  width: 65%;
+  height: 98%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app__body .app__body__left .chart__container
+{
+  width: 100%;
+  height: 60%;
+  border: 1px solid #eeeeee;
+  border-radius: 20px;
+  position: relative;
+}
+
+.app__body .app__body__left .chart__container .stock__info
+{
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  /* background-color: #ffffff; */
+  z-index: 100;
+  padding-left: 30px;
+  padding-top: 10px;
+}
+
+.app__body .app__body__left .chart__container .stock__info .stock__details
+{
+  display: flex;
+}
+
+.app__body .app__body__left .chart__container .stock__info .stock__details p
+{
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.app__body .app__body__left .chart__container .stock__info .stock__details p #stock__full__name
+{
+  margin-right: 7px;
+  margin-left: 3px;
+}
+
+.app__body .app__body__left .chart__container .stock__info .stock__details p #stock__nse__code
+{
+  text-transform: uppercase;
+  color: #00a0e3;
+  margin-right: 7px;
+}
+
+.app__body .app__body__left .chart__container .stock__info .stock__details p #stock__bse__code
+{
+  text-transform: uppercase;
+  color: #c8c8c8;
+  margin-right: 7px;
+}
+
+.app__body .app__body__left .chart__container .stock__info .stock__details .stock__type
+{
+  width: auto;
+  height: auto;
+  padding: 2px 30px;
+  border-radius: 15px;
+  color: #ffffff;
+  font-weight: 700;
+  background-color: #00a0e3;
+  font-size: 12px;
+  margin: 0 10px;
+}
+
+.app__body .app__body__left .chart__container .stock__info .stock__price__details
+{
+  display: flex;
+}
+
+.app__body .app__body__left .chart__container .stock__info .stock__price__details p span
+{
+  font-size: 16px;
+  font-weight: 700;
+  margin-right: 2px;
+}
+
+.app__body .app__body__left .chart__container .stock__info .stock__price__details p span.price__decimals
+{
+  color: #888888;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.app__body .app__body__left .chart__container .stock__info .stock__price__details p span.stock__performance
+{
+  font-size: 12px;
+  color: #00a0e3;
+}
+
+.app__body .app__body__left .chart__container .stock__info .stock__price__details p span.clock
+{
+  margin: 0 3px;
+  font-size: 12px;
+}
+
+.app__body .app__body__left .chart__container .stock__info .stock__price__details
+{
+  margin: 0 3px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.app__body .app__body__left .chart__container .stock__info .stock__purchase
+{
+  display: flex;
+  margin-top: 5px;
+}
+
+.app__body .app__body__left .chart__container .stock__info .stock__purchase>div
+{
+  width: auto;
+  height: auto;
+  background-color: #00a0e3;
+  margin-right: 10px;
+  font-size: 12px;
+  padding: 3px 25px;
+  border-radius: 15px;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.app__body .app__body__left .chart__container .stock__info .stock__purchase>div.sell__stock
+{
+  background-color: #E51A4B;
+}
+
+.app__body .app__body__left .chart__container .stock__chart
+{
+  height: 93%;
+  width: 100%;
+}
+
+.app__body .app__body__left .chart__container .chart__range
+{
+  width: 100%;
+  height: 7%;
+  display: flex;
+  align-items: center;
+  padding-left: 40px;
+}
+
+.app__body .app__body__left .chart__container .chart__range .chart__range__value
+{
+  font-size: 12px;
+  margin: 0 7px;
+  color: #404040;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.app__body .app__body__left .chart__container .chart__range .active__range
+{
+  color: #00a0e3;
+}
+
+.app__body .app__body__left .chart__container .chart__zoom
+{
+  position: absolute;
+  right: 2%;
+  bottom: 2%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app__body .app__body__left .chart__container .chart__zoom img
+{
+  width: 22px;
+}
+
+.app__body .app__body__left .key__statistics
+{
+  width: 100%;
+  height: 38%;
+  border: 1px solid #cccccc;
+  border-radius: 20px;
+  padding: 5px 5px 5px 40px;
+}
+
+.app__body .app__body__left .key__statistics .ks__title
+{
+  color: #404040;
+  font-weight: 700;
+}
+
+.app__body .app__body__left .key__statistics .ks__container
+{
+  display: flex;
+  width: 100%;
+  height: 90%;
+}
+
+.app__body .app__body__left .key__statistics .ks__container .ks__slot
+{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+
+.app__body .app__body__left .key__statistics .ks__container .ks__slot .statistics .ks__name
+{
+  font-size: 14px;
+  color: #404040;
+  font-weight: 600;
+}
+
+.app__body .app__body__left .key__statistics .ks__container .ks__slot .statistics .ks__value
+{
+  font-size: 12px;
+  color: #404040;
+  font-weight: 500;
+}
+
+.app__body .app__body__right
+{
+  width: 30%;
+  height: 98%;
+}
+
+.app__body .app__body__right .cash__position
+{
+  width: 100%;
+  height: 100%;
+  border: 1px solid #cccccc;
+  border-radius: 20px;
+  padding: 5px;
+  overflow: hidden;
+  position: relative;
+}
+
+.app__body .app__body__right .cash__position .menu__btn
+{
+  position: absolute;
+  top: 2%;
+  right: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.app__body .app__body__right .cash__position .menu__btn img
+{
+  width: 26px;
+}
+
+.app__body .app__body__right .cash__position .cp__title
+{
+  padding-left: 20px;
+  font-weight: 700;
+  color: #404040;
+}
+
+.app__body .app__body__right .cash__position .cp__value
+{
+  padding-left: 20px;
+  color: #404040;
+  font-weight: 700;
+}
+
+.app__body .app__body__right .cash__position .cp__value span
+{
+  font-size: 26px;
+  font-weight: 400;
+  margin-right: 10px;
+}
+
+.app__body .app__body__right .cash__position .cp__line
+{
+  width: 90%;
+  height: 0.5px;
+  background-color: #cccccc;
+  margin: 0 auto;
+  margin: 5px auto;
+}
+
+.app__body .app__body__right .cash__position .cp__portfolio
+{
+  padding-left: 20px;
+  font-size: 14px;
+  color: #404040;
+  font-weight: 600;
+}
+
+.app__body .app__body__right .cash__position .cp__portfolio #cp__portfolio__name
+{
+  font-size: 18px;
+  color: #00a0e3;
+  font-weight: 700;
+}
+
+.app__body .app__body__right .cash__position .cp__shares__container
+{
+  padding: 30px 0 5px;
+  position: relative;
+}
+
+.app__body .app__body__right .cash__position .cp__shares__container .more__btn
+{
+  position: absolute;
+  top: 1%;
+  right: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.app__body .app__body__right .cash__position .cp__shares__container .more__btn img
+{
+  width: 20px;
+}
+
+.app__body .app__body__right .cash__position .cp__shares
+{
+  height: 500px;
+  overflow-y: scroll;
+}
+
+.app__body .app__body__right .cash__position .cp__shares::-webkit-scrollbar 
+{
+	width: 5px;
+}
+  
+.app__body .app__body__right .cash__position .cp__shares::-webkit-scrollbar-track {
+	display: none;
+}
+  
+.app__body .app__body__right .cash__position .cp__shares::-webkit-scrollbar-thumb {
+	background: #e8e8e8;
+	border-radius: 10px;
+}
+  
+.app__body .app__body__right .cash__position .cp__shares::-webkit-scrollbar-thumb:hover {
+	cursor: pointer;
+}
+
+.app__body .app__body__right .cash__position .cp__shares .share__profile
+{
+  padding: 0 15px 0 10px;
+  margin: 0 0 14px 0;
+} 
+
+.app__body .app__body__right .cash__position .cp__shares .share__profile .sp__slot
+{
+  display: flex;
+  font-size: 12px;
+  justify-content: space-between;
+  align-items: center;
+  color: #404040;
+  font-weight: 600;
+}
+
+.app__body .app__body__right .cash__position .cp__shares .share__profile .sp__slot.sp__top
+{
+  position: relative;
+}
+
+.app__body .app__body__right .cash__position .cp__shares .share__profile .sp__slot .sp__status
+{
+  position: absolute;
+  top: 50%;
+  left: -3%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  width: 5px;
+  height: 5px;
+  background-color: #00a0e3;
+}
+
+.app__body .app__body__right .cash__position .cp__shares .share__profile .sp__top p
+{
+  color: #404040;
+  font-weight: 700;
+}
+
+.app__body .app__body__right .cash__position .cp__shares .share__profile .sp__middle p.sp__rate
+{
+  font-weight: 700;
+}
+
+.app__body .app__body__right .cash__position .cp__shares .share__profile .sp__middle p.sp__rate.increment
+{
+  color: #00a0e3;
+}
+
+.app__body .app__body__right .cash__position .cp__shares .share__profile .sp__middle p.sp__rate.decrement
+{
+  color: #E51A4B;
+}
+
+/*app__footer*/
+.app__footer
+{
+  width: 100%;
+  height: 5vh;
+  background-color: #00a0e3;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.app__footer span
+{
+  font-size: 14px;
+  color: #ffffff;
+  margin: 0 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
