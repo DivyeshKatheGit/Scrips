@@ -40,6 +40,12 @@
   align-items: center;
 }
 
+.app__header.app__header__zoom
+{
+  height: 0;
+  display: none;
+}
+
 .app__header .brand__logo img
 {
   width: 50px;
@@ -121,6 +127,12 @@
   align-items: center;
 }
 
+.app__body.app__body__zoom
+{
+  height: 100vh;
+  padding: 0px 10px;
+}
+
 .app__body .app__body__left
 {
   width: 65%;
@@ -131,6 +143,11 @@
   align-items: center;
 }
 
+.app__body .app__body__left.app__body__left__zoom
+{
+  width: 75%;
+}
+
 .app__body .app__body__left .chart__container
 {
   width: 100%;
@@ -138,6 +155,12 @@
   border: 1px solid #eeeeee;
   border-radius: 20px;
   position: relative;
+}
+
+.app__body .app__body__left .chart__container.chart__container__zoom
+{
+  height: 85%;
+  border: none;
 }
 
 .app__body .app__body__left .chart__container .stock__info
@@ -296,6 +319,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 100;
 }
 
 .app__body .app__body__left .chart__container .chart__zoom img
@@ -312,6 +336,11 @@
   padding: 5px 5px 5px 40px;
 }
 
+.app__body .app__body__left .key__statistics.key__statistics__zoom
+{
+  height: 15%;
+}
+
 .app__body .app__body__left .key__statistics .ks__title
 {
   color: #404040;
@@ -320,9 +349,21 @@
 
 .app__body .app__body__left .key__statistics .ks__container
 {
-  display: flex;
   width: 100%;
   height: 90%;
+}
+
+.app__body .app__body__left .key__statistics .ks__container .ks__container__half,
+.app__body .app__body__left .key__statistics .ks__container .ks__container__full
+{
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.app__body .app__body__left .key__statistics .ks__container .ks__container__full
+{
+  display: none;
 }
 
 .app__body .app__body__left .key__statistics .ks__container .ks__slot
@@ -330,28 +371,57 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  /* justify-content: space-around; */
+}
+
+.app__body .app__body__left .key__statistics .ks__container .ks__container__half .ks__slot .statistics
+{
+  margin: auto 0;
 }
 
 
-.app__body .app__body__left .key__statistics .ks__container .ks__slot .statistics .ks__name
+.app__body .app__body__left .key__statistics .ks__container .ks__container__half .ks__slot .statistics .ks__name
 {
   font-size: 14px;
   color: #404040;
   font-weight: 600;
 }
 
-.app__body .app__body__left .key__statistics .ks__container .ks__slot .statistics .ks__value
+.app__body .app__body__left .key__statistics .ks__container .ks__container__half .ks__slot .statistics .ks__value
 {
   font-size: 12px;
   color: #404040;
   font-weight: 500;
 }
 
+.app__body .app__body__left .key__statistics .ks__container .ks__container__full .ks__slot .statistics .ks__name
+{
+  font-size: 12px;
+  color: #404040;
+  font-weight: 600;
+}
+
+.app__body .app__body__left .key__statistics .ks__container .ks__container__full .ks__slot .statistics .ks__value
+{
+  font-size: 10px;
+  color: #404040;
+  font-weight: 500;
+}
+
+.app__body .app__body__left .key__statistics .ks__container .ks__container__full .ks__slot .statistics
+{
+  margin: 3px 0;
+}
+
 .app__body .app__body__right
 {
   width: 30%;
   height: 98%;
+}
+
+.app__body .app__body__right.app__body__right__zoom
+{
+  width: 20%;
 }
 
 .app__body .app__body__right .cash__position
@@ -535,6 +605,12 @@
   display: flex;
   align-items: center;
   padding-left: 20px;
+}
+
+.app__footer.app__footer__zoom
+{
+  height: 0;
+  display: none;
 }
 
 .app__footer span

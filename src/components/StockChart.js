@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {scaleTime} from 'd3-scale';
 import {ChartCanvas,Chart} from 'react-stockcharts';
 import {XAxis,YAxis} from 'react-stockcharts/lib/axes';
-import {LineSeries} from 'react-stockcharts/lib/series';
+import {LineSeries,AreaSeries} from 'react-stockcharts/lib/series';
 import {fitWidth} from 'react-stockcharts/lib/helper';
 import { last } from "react-stockcharts/lib/utils";
 import { timeFormat } from 'd3-time-format';
@@ -12,17 +12,29 @@ import { timeFormat } from 'd3-time-format';
 export class StockChart extends React.Component {
     render() {
 
-        const {data : initialData,type,width,ratio,range} = this.props;
+        const {data : initialData,type,width,height,ratio,range,zoom} = this.props;
 
-        console.log(this.props);
+        // console.log(this.props);
 
         let dataVal;
         let xAccessorVal;
         let xScaleVal;
         let displayxAccessorVal;
 
-        const height = $('.stock__chart').height();
-        var margin = {left: 20, right: 60, top:20, bottom: 25};
+        // const height = $('.stock__chart').height();
+
+        console.log(height,width);
+
+        let margin;
+
+        if(zoom)
+        {
+            margin = {left: 0, right: 30, top:20, bottom: 25};
+        }
+        else
+        {
+            margin = {left: 0, right: 40, top:20, bottom: 25};
+        }
         var gridHeight = height - margin.top - margin.bottom;
         var gridWidth = width - margin.left - margin.right;
 
@@ -116,7 +128,8 @@ export class StockChart extends React.Component {
                 <Chart id={1} yExtents={d =>d.open}>
 
                     <XAxis axisAt="bottom" orient="bottom" ticks={5} tickStroke='#888888' stroke='#c8c8c8' fontWeight={600} fontFamily="Open Sans, sans-serif" fontSize={10}/>
-                    <LineSeries yAccessor ={d =>d.open} strokeWidth ={2} stroke="#00a0e3" />
+                    {zoom && <YAxis axisAt="right" orient="right" ticks={4} tickStroke='#888888' stroke='#c8c8c8' fontWeight={600} fontFamily="Open Sans, sans-serif" fontSize={10} />}
+                    <AreaSeries yAccessor ={d =>d.open} strokeWidth ={2} stroke="#00a0e3" fill="#00a0e3"/>
 
                 </Chart>
 

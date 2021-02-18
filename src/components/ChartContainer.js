@@ -11,9 +11,28 @@ export class ChartContainer extends React.Component {
     constructor(props)
     {
         super(props);
+        this.setInitialSize = this.setInitialSize.bind(this);
         this.state = {
+            chartWidth : 0,
+            chartHeight : 0,
+            zoom : false,
             range : '6M'
         }
+    }
+
+    componentDidMount()
+    {
+        this.setInitialSize();
+    }
+
+    setInitialSize()
+    {
+        let wd = $('.stock__chart').width();
+        let ht = $('.stock__chart').height();
+        this.setState({
+            chartWidth : wd,
+            chartHeight : ht
+        });
     }
 
     changeRange(type)
@@ -23,12 +42,63 @@ export class ChartContainer extends React.Component {
         });
         $('.chart__range>div').removeClass('active__range');
         $('.chart__range>div[data-range="'+type+'"]').addClass('active__range');
+    }
+
+    openZoomMode()
+    {
+        console.log('zoom');
+        if(this.state.zoom)
+        {
+
+
+            $('.app__header').removeClass('app__header__zoom');
+            $('.app__body').removeClass('app__body__zoom');
+            $('.app__footer').removeClass('app__footer__zoom');
+            $('.key__statistics').removeClass('key__statistics__zoom');
+            $('.chart__container').removeClass('chart__container__zoom');
+            $('.app__body__left').removeClass('app__body__left__zoom');
+            $('.app__body__right').removeClass('app__body__right__zoom');
+            $('.ks__container__full').css('display','none');
+            $('.ks__container__half').css('display','flex');
         
+            this.setState({
+                zoom : false,
+                chartWidth : $('.stock__chart').width(),
+                chartHeight : $('.stock__chart').height()
+            });
+            console.log('zoom out',$('.stock__chart').height(),$('.stock__chart').width());
+        }
+        else
+        {
+
+
+            $('.app__header').addClass('app__header__zoom');
+            $('.app__body').addClass('app__body__zoom');
+            $('.app__footer').addClass('app__footer__zoom');
+            $('.key__statistics').addClass('key__statistics__zoom');
+            $('.chart__container').addClass('chart__container__zoom');
+            $('.app__body__left').addClass('app__body__left__zoom');
+            $('.app__body__right').addClass('app__body__right__zoom');
+            $('.ks__container__full').css('display','flex');
+            $('.ks__container__half').css('display','none');
+
+            this.setState({
+                zoom : true,
+                chartWidth : $('.stock__chart').width(),
+                chartHeight : $('.stock__chart').height()
+            });
+
+            console.log('zoom in',$('.stock__chart').height(),$('.stock__chart').width());
+
+           
+            
+        }
+       
     }
 
     render() {
 
-        console.log(this.props.data);
+        // console.log(this.props.data);
 
         return (
             <div className="chart__container">
@@ -54,7 +124,7 @@ export class ChartContainer extends React.Component {
                     </div>
                 </div>
                 <div className="stock__chart">
-                    <StockChart key={1} data={this.props.data} range={this.state.range}/>
+                    <StockChart key={1} data={this.props.data} range={this.state.range} width={this.state.chartWidth} height={this.state.chartHeight} zoom={this.state.zoom}/>
                 </div>
                 <div className="chart__range">
                     <div data-range="1D" className="chart__range__value" onClick={this.changeRange.bind(this,'1D')}>1D</div>
@@ -66,7 +136,7 @@ export class ChartContainer extends React.Component {
                     <div data-range="5Y" className="chart__range__value" onClick={this.changeRange.bind(this,'5Y')}>5Y</div>
                     <div data-range="Max" className="chart__range__value" onClick={this.changeRange.bind(this,'Max')}>Max</div>
                 </div>
-                <div className="chart__zoom">
+                <div className="chart__zoom" onClick={this.openZoomMode.bind(this)}>
                     <img src={Zoom} alt="zoom"/> 
                 </div>
             </div>

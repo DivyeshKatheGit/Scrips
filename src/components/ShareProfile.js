@@ -4,8 +4,6 @@ export class ShareProfile extends React.Component {
     render() {
 
         const {code,name,shares,value,change} = this.props;
-        let c = parseFloat(change);
-        console.log(c)
 
         return (
             <div className="share__profile">

@@ -41,7 +41,7 @@ class ScripsBody extends React.Component
 
         });
 
-        console.log(tempDataArray);
+        // console.log(tempDataArray);
 
         this.setState({
             chartdata : tempDataArray
