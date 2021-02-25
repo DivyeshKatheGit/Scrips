@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import $ from 'jquery';
+import Close from '../assets/icons/close.svg';
 import CashPosition from './CashPosition';
 import ChartContainer from './ChartContainer';
 import KeyStatistics from './KeyStatistics';
@@ -48,9 +50,34 @@ class ScripsBody extends React.Component
         });
 
     }
+
+    openNews()
+    {
+        $('.business__news__section').css('transform','translateY(0%)');
+        $('.bn__close').addClass('active');
+        $('.bn__title').removeClass('active');
+    }
+
+    closeNews()
+    {
+        $('.business__news__section').css('transform','translateY(100%)');
+        $('.bn__close').removeClass('active');
+        $('.bn__title').addClass('active');
+    }
+
     render()
     {
         return <div className="app__body">
+
+            <div className="business__news__section">
+                <div className="business__news__wrapper">
+                    <div className="bn__title active" onClick={this.openNews.bind(this)}><p>Business News</p> <span>&#8673;</span></div>
+                    <div className="bn__close" onClick={this.closeNews.bind(this)}><img src={Close} alt="x"/></div>
+                    <div className="business__news__content">
+                        <h1 style={{textAlign : 'center'}}>News Section</h1>
+                    </div>
+                </div>
+            </div>
             <div className="app__body__left">
                 <ChartContainer data={this.state.chartdata}/>
                 <KeyStatistics />
@@ -58,6 +85,7 @@ class ScripsBody extends React.Component
             <div className="app__body__right">
                 <CashPosition />
             </div>
+
         </div>
     }
 }

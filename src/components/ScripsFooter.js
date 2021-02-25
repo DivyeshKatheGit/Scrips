@@ -6,7 +6,7 @@ export class ScripsFooter extends React.Component {
             <div className="app__footer">
                 <span>About us</span>
                 <span>Trading Basics</span>
-                <span>React us</span>
+                <span>Reach us</span>
                 <span>Help</span>
                 <span>FAQs</span>
             </div>
