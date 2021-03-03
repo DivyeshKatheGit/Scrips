@@ -1,11 +1,12 @@
 import React from 'react';
 import $ from 'jquery';
-import Close from '../assets/icons/close.svg';
+import Close from '../../assets/icons/close.svg';
 import CashPosition from './CashPosition';
 import ChartContainer from './ChartContainer';
 import KeyStatistics from './KeyStatistics';
+import TopStocks from './TopStocks';
 import { timeParse } from "d3-time-format";
-import DataArray from '../data/MSFT';
+import MSFTArray from '../../data/MSFT';
 
 class ScripsBody extends React.Component
 {
@@ -29,7 +30,7 @@ class ScripsBody extends React.Component
         console.log('load');
         let tempDataArray = [];
         const parseDate = timeParse('%Y-%m-%d');
-        DataArray.forEach(d =>{
+        MSFTArray.forEach(d =>{
             let dobj = {
                 date : parseDate(d[0]),
                 open : parseFloat(d[1]),
@@ -69,21 +70,27 @@ class ScripsBody extends React.Component
     {
         return <div className="app__body">
 
-            <div className="business__news__section">
-                <div className="business__news__wrapper">
-                    <div className="bn__title active" onClick={this.openNews.bind(this)}><p>Business News</p> <span>&#8673;</span></div>
-                    <div className="bn__close" onClick={this.closeNews.bind(this)}><img src={Close} alt="x"/></div>
-                    <div className="business__news__content">
-                        <h1 style={{textAlign : 'center'}}>News Section</h1>
+            
+            <div className="app__body__top">
+                <TopStocks data={this.state.chartdata}/>
+            </div>
+            <div className="app__body__bottom">
+                <div className="business__news__section">
+                    <div className="business__news__wrapper">
+                        <div className="bn__title active" onClick={this.openNews.bind(this)}><p>Business News</p> <span>&#8673;</span></div>
+                        <div className="bn__close" onClick={this.closeNews.bind(this)}><img src={Close} alt="x"/></div>
+                        <div className="business__news__content">
+                            <h1 style={{textAlign : 'center'}}>News Section</h1>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className="app__body__left">
-                <ChartContainer data={this.state.chartdata}/>
-                <KeyStatistics />
-            </div>
-            <div className="app__body__right">
-                <CashPosition />
+                <div className="app__body__left">
+                    <ChartContainer data={this.state.chartdata}/>
+                    <KeyStatistics />
+                </div>
+                <div className="app__body__right">
+                    <CashPosition />
+                </div>
             </div>
 
         </div>

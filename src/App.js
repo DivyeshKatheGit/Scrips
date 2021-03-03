@@ -1,7 +1,7 @@
 import './css/App.css';
-import ScripsHeader from './components/ScripsHeader';
-import ScripsBody from './components/ScripsBody';
-import ScripsFooter from './components/ScripsFooter';
+import ScripsHeader from './components/Header/ScripsHeader';
+import ScripsBody from './components/Body/ScripsBody';
+import ScripsFooter from './components/Footer/ScripsFooter';
 
 function App() {
   return (

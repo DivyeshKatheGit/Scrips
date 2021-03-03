@@ -1,7 +1,7 @@
 import React from 'react';
 import ShareProfile from './ShareProfile';
-import More from '../assets/icons/more.svg';
-import Menu from '../assets/icons/menu.svg';
+import More from '../../assets/icons/more.svg';
+import Menu from '../../assets/icons/menu.svg';
 
 export class CashPosition extends React.Component {
     render() {

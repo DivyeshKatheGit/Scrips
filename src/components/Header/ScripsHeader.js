@@ -1,8 +1,8 @@
 import React from 'react';
 import ScripsMenu from './ScripsMenu';
 //icons
-import BrandLogo from '../assets/icons/yottol.png';
-import Search from '../assets/icons/search.svg';
+import BrandLogo from '../../assets/icons/yottol.png';
+import Search from '../../assets/icons/search.svg';
 
 class ScripsHeader extends React.Component
 {

@@ -119,21 +119,93 @@
 /*app body*/
 .app__body
 {
-  width: 100%;
-  height: 88vh;
-  background-color: #ffffff;
+  overflow: hidden;
   padding: 0 240px;
+}
+
+.app__body__top
+{
+  width: 100%;
+  height: 8vh;
+}
+
+.app__body__top .top__stocks
+{
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.app__body__top .top__stocks .upper__stock
+{
+  flex: 1;
+  font-size: 12px;
+  padding: 2px 5px 5px 10px;
+  font-weight: 900;
+  border-right: 2px solid #eeeeee;
+  display: flex;
+}
+
+.app__body__top .top__stocks .upper__stock:last-child
+{
+  border-right: none;
+}
+
+.app__body__top .top__stocks .upper__stock .upper__stock__info
+{
+  width: 40%;
+}
+
+.app__body__top .top__stocks .upper__stock .upper__stock__name
+{
+  color: #00a0e3;
+}
+
+.app__body__top .top__stocks .upper__stock .upper__stock__value
+{
+  margin-top: 5px;
+}
+
+.app__body__top .top__stocks .upper__stock .upper__stock__change
+{
+  color: #26A69A;
+  font-size: 10px;
+}
+
+.app__body__top .top__stocks .upper__stock .upper__stock__chart
+{
+  width: 60%;
+  height: 100%;
+  overflow: hidden;
+}
+
+
+.app__body__top__zoom
+{
+  height: 0;
+  display: none;
+}
+
+.app__body__bottom
+{
+  width: 100%;
+  height: 80vh;
+  background-color: #ffffff;
   display: flex;
   align-items: center;
   position: relative;
-  overflow: hidden;
   justify-content: space-between;
+}
+
+.app__body__bottom__zoom
+{
+  height: 100vh;
 }
 
 .app__body.app__body__zoom
 {
   height: 100vh;
-  padding: 0px 10px 0px 10px;
+  padding: 0px;
 }
 
 .app__body .business__news__section
@@ -147,6 +219,8 @@
   transform: translateY(100%);
   z-index: 1000;
   transition: transform 1s;
+  border: 1px solid #404040;
+  border-radius: 20px;
 }
 
 .app__body .business__news__section .business__news__wrapper
@@ -214,9 +288,10 @@
 .app__body .app__body__left.app__body__left__zoom
 {
   width: 100%;
+  height: 100%;
 }
 
-.app__body .app__body__left .Indicator__popup
+.app__body .app__body__left .Indicator__popup,.app__body .app__body__left .Interactive__popup
 {
   position: absolute;
   top: 50%;
@@ -225,18 +300,23 @@
   background-color: #ffffff;
   box-shadow: 1px 1px 5px 1px #cccccc;
   z-index: 1000;
-  width: 800px;
-  height: 600px;
+  width: 65%;
+  height: 70%;
   border-radius: 5px;
+  overflow-x: hidden;
   display: none;
 }
 
-.app__body .app__body__left .Indicator__popup.active
+.app__body .app__body__left .Indicator__popup.active,
+.app__body .app__body__left .Compare__popup.active,
+.app__body .app__body__left .Interactive__popup.active
 {
   display: block;
 }
 
-.app__body .app__body__left .Indicator__popup .Indicator__title__name
+.app__body .app__body__left .Indicator__popup .Indicator__title__name,
+.app__body .app__body__left .Compare__popup .Compare__title__name,
+.app__body .app__body__left .Interactive__popup .Interactive__title__name
 {
   width: 100%;
   height: 15%;
@@ -250,44 +330,57 @@
   border-bottom: 0.5px solid #eeeeee;
 }
 
-.app__body .app__body__left .Indicator__popup .Indicator__title__name #Indicator__close
+.app__body .app__body__left .Indicator__popup .Indicator__title__name #Indicator__close,
+.app__body .app__body__left .Compare__popup .Compare__title__name #Compare__close,
+.app__body .app__body__left .Interactive__popup .Interactive__title__name #Interactive__close
 {
   width: 35px;
   height: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #fffff5;
+  background-color: #ffffff;
   cursor: pointer;
 }
 
-.app__body .app__body__left .Indicator__popup .Indicator__title__name #Indicator__close:hover
+.app__body .app__body__left .Indicator__popup .Indicator__title__name #Indicator__close:hover,
+.app__body .app__body__left .Compare__popup .Compare__title__name #Compare__close:hover,
+.app__body .app__body__left .Interactive__popup .Interactive__title__name #Interactive__close:hover
 {
   background-color: #f5f5f5;
 }
 
-.app__body .app__body__left .Indicator__popup .Indicator__options
+.app__body .app__body__left .Indicator__popup .Indicator__options,
+.app__body .app__body__left .Interactive__popup .Interactive__options
 {
   width: 100%;
   height: 85%;
   overflow-y: scroll;
+  position: relative;
 }
 
-.app__body .app__body__left .Indicator__popup .Indicator__options::-webkit-scrollbar 
+.app__body .app__body__left .Indicator__popup .Indicator__options::-webkit-scrollbar ,
+.app__body .app__body__left .Interactive__popup .Interactive__options::-webkit-scrollbar
 {
 	width: 5px;
 }
   
-.app__body .app__body__left .Indicator__popup .Indicator__options::-webkit-scrollbar-track {
+.app__body .app__body__left .Indicator__popup .Indicator__options::-webkit-scrollbar-track,
+.app__body .app__body__left .Interactive__popup .Interactive__options::-webkit-scrollbar-track
+ {
 	display: none;
 }
   
-.app__body .app__body__left .Indicator__popup .Indicator__options::-webkit-scrollbar-thumb {
+.app__body .app__body__left .Indicator__popup .Indicator__options::-webkit-scrollbar-thumb,
+.app__body .app__body__left .Interactive__popup .Interactive__options::-webkit-scrollbar-thumb
+{
 	background: #e8e8e8;
 	border-radius: 10px;
 }
   
-.app__body .app__body__left .Indicator__popup .Indicator__options::-webkit-scrollbar-thumb:hover {
+.app__body .app__body__left .Indicator__popup .Indicator__options::-webkit-scrollbar-thumb:hover,
+.app__body .app__body__left .Interactive__popup .Interactive__options::-webkit-scrollbar-thumb:hover
+ {
 	cursor: pointer;
 }
 
@@ -353,9 +446,257 @@
   color: #ffffff;
 }
 
-.app__body .app__body__left .Indicator__popup .Indicator__options .Indicator__option__block>div span:hover
+.app__body .app__body__left .Indicator__popup .Indicator__info
 {
+  position: absolute;
+  /* background-color: #00a0e3; */
+  background-color: #fbfbfb;
+  box-shadow: -2px 0 4px #cccccc;
+  top: 15%;
+  right: 0;
+  width: 80%;
+  height: 85%;
+  text-align: center;
+  transform: translateX(100%);
+  transition: .3s;
+  z-index: 1999;
+}
 
+.app__body .app__body__left .Indicator__popup .Indicator__info.active
+{
+  transform: translateX(0%);
+}
+
+.app__body .app__body__left .Indicator__popup .Indicator__info .Indicator__info__name
+{
+  width: 100%;
+  height: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+  border-bottom: 0.5px solid #eeeeee;
+  position: relative;
+}
+
+.app__body .app__body__left .Indicator__popup .Indicator__info .Indicator__info__name span#Indicator__Info__close
+{
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%);
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fffff5;
+  cursor: pointer;
+}
+
+
+
+.app__body .app__body__left .Indicator__popup .Indicator__info .Indicator__info__data
+{
+  padding: 10px 30px;
+}
+
+.app__body .app__body__left .Indicator__popup .Indicator__info .Indicator__info__data>div
+{
+  margin-bottom: 20px;
+}
+
+.app__body .app__body__left .Indicator__popup .Indicator__info .Indicator__info__data>div .Indicator__info__data__title
+{
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.app__body .app__body__left .Indicator__popup .Indicator__info .Indicator__info__data>div .Indicator__info__data__value
+{
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.app__body .app__body__left .Compare__popup
+{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: #ffffff;
+  box-shadow: 1px 1px 5px 1px #cccccc;
+  z-index: 1000;
+  width: 35%;
+  height: 80%;
+  border-radius: 5px;
+  overflow: hidden;
+  display: none;
+}
+
+.app__body .app__body__left .Compare__popup .Compare__stock__search
+{
+  width: 100%;
+  height: 8%;
+  border-bottom: 0.5px solid #eeeeee;
+  align-items: center;
+  display: flex;
+  padding-left: 10px;
+}
+
+.app__body .app__body__left .Compare__popup .Compare__stock__search .Compare__stock__search__icon
+{
+  flex: 1;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app__body .app__body__left .Compare__popup .Compare__stock__search .Compare__stock__search__input
+{
+  flex: 9;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.app__body .app__body__left .Compare__popup .Compare__stock__search .Compare__stock__search__icon img
+{
+  width: 20px;
+  height: 20px;
+}
+
+.app__body .app__body__left .Compare__popup .Compare__stock__search .Compare__stock__search__input input
+{
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #404040;
+  font-weight: 700;
+}
+
+.app__body .app__body__left .Compare__popup .Compare__options
+{
+  width: 100%;
+  height: 85%;
+  overflow-y: scroll;
+  position: relative;
+}
+
+.app__body .app__body__left .Compare__popup .Compare__options .Compare__stock__block
+{
+  width: 100%;
+  padding: 10px 20px 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+  border-bottom: 0.5px solid #eeeeee;
+}
+
+.app__body .app__body__left .Compare__popup .Compare__options .Compare__stock__block:hover
+{
+  background-color: #f5f5f5;
+}
+
+.app__body .app__body__left .Compare__popup .Compare__options .Compare__stock__block p
+{
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.app__body .app__body__left .Compare__popup .Compare__options .Compare__stock__block>div
+{
+  display: flex;
+  align-items: center;
+}
+
+.app__body .app__body__left .Compare__popup .Compare__options .Compare__stock__block>div button
+{
+  border: none;
+  outline: none;
+  background-color: #eeeeee;
+  box-shadow: 0 2px 3px rgba(0,0,0,.25);
+  margin-right: 20px;
+  border-radius: 2px;
+  width: 130px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #000000;
+}
+
+
+.app__body .app__body__left .Compare__popup .Compare__options::-webkit-scrollbar 
+{
+	width: 5px;
+}
+  
+.app__body .app__body__left .Compare__popup .Compare__options::-webkit-scrollbar-track {
+	display: none;
+}
+  
+.app__body .app__body__left .Compare__popup .Compare__options::-webkit-scrollbar-thumb {
+	background: #e8e8e8;
+	border-radius: 10px;
+}
+  
+.app__body .app__body__left .Compare__popup .Compare__options::-webkit-scrollbar-thumb:hover {
+	cursor: pointer;
+}
+
+.app__body .app__body__left .Interactive__popup .Interactive__options .Interactive__option__block
+{
+  width: 100%;
+}
+
+.app__body .app__body__left .Interactive__popup .Interactive__options .Interactive__option__block>p
+{
+  padding: 10px 30px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.app__body .app__body__left .Interactive__popup .Interactive__options .Interactive__option__block .Interactive__tool
+{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding : 10px 0 10px 50px;
+  cursor: pointer;
+}
+
+.app__body .app__body__left .Interactive__popup .Interactive__options .Interactive__option__block .Interactive__tool:hover
+{
+  background-color: #eeeeee;
+}
+
+.app__body .app__body__left .Interactive__popup .Interactive__options .Interactive__option__block>div img
+{
+  width: 25px;
+  margin-right: 10px;
+}
+
+/* .app__body .app__body__left .Interactive__popup .Interactive__options .Interactive__option__block>div p
+{
+  padding: 6px 50px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+} */
+
+.app__body .app__body__left .Interactive__popup .Interactive__options .Interactive__option__block>div>p:hover
+{
+  background-color: #eeeeee;
 }
 
 .app__body .app__body__left .chart__container
@@ -617,6 +958,11 @@
 {
   height: 93%;
   width: 100%;
+}
+
+.app__body .app__body__left .chart__container .stock__chart g
+{
+  fill : '#00a0e3';
 }
 
 .app__body .app__body__left .chart__container .chart__range
@@ -955,4 +1301,375 @@
   margin: 0 20px;
   font-weight: 600;
   cursor: pointer;
+}
+
+
+@media only screen and (max-width: 800px)
+{
+
+  .app
+  {
+    width: 100%;
+    height: auto;
+    overflow: scroll;
+  }
+  /*app header*/
+  .app__header
+  {
+    padding: 0 20px;
+  }
+
+  .app__header.app__header__zoom
+  {
+    height: 0;
+    display: none;
+  }
+
+  .app__header .brand__logo img
+  {
+    width: 40px;
+    height: 40px;
+    margin-top: 10px;
+    margin-left: 20px;
+  }
+
+  .app__header .brand__name p
+  {
+    font-size: 30px;
+    margin: 0 30px 0 30px;
+  }
+
+  .app__header .stock__search
+  {
+    width: 400px;
+    height: 75%;
+  }
+
+  .app__header .stock__search .stock__search__icon img
+  {
+    width: 25px;
+    height: 25px;
+  }
+
+  .app__header .stock__search input
+  {
+    font-size: 16px;
+  }
+
+  .app__header .app__menu
+  {
+    display: none;
+    margin-left: 20px;
+  }
+
+  .app__header .app__menu span
+  {
+    font-size: 14px;
+    margin: 0 10px;
+    font-weight: 700;
+    color: #404040;
+    cursor: pointer;
+  }
+
+  /*app body*/
+  .app__body
+  {
+    padding: 0 20px;
+  }
+
+  .app__body.app__body__zoom
+  {
+    height: 100vh;
+    padding: 0px;
+  }
+
+  .app__body .app__body__left
+  {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .app__body .app__body__left.app__body__left__zoom
+  {
+    width: 100%;
+  }
+
+  .app__body .app__body__left .Indicator__popup
+  {
+    width: 70%;
+    height: 60%;
+  }
+
+  .app__body .app__body__left .Indicator__popup .Indicator__title__name
+  {
+    padding: 0 30px 0 30px;
+  }
+
+  .app__body .app__body__left .Indicator__popup .Indicator__title__name #Indicator__close
+  {
+    width: 25px;
+    height: 25px;
+  }
+
+  .app__body .app__body__left .Indicator__popup .Indicator__options .Indicator__option__block
+  {
+    padding: 10px 20px 10px 30px;
+  }
+
+  .app__body .app__body__left .Indicator__popup .Indicator__options .Indicator__option__block p
+  {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .app__body .app__body__left .Indicator__popup .Indicator__options .Indicator__option__block>div button
+  {
+    margin-right: 20px;
+    width: 130px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .app__body .app__body__left .Indicator__popup .Indicator__info .Indicator__info__name
+  {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .app__body .app__body__left .Indicator__popup .Indicator__info .Indicator__info__name span#Indicator__Info__close
+  {
+    width: 25px;
+    height: 25px;
+  }
+
+  .app__body .app__body__left .Indicator__popup .Indicator__info .Indicator__info__data>div .Indicator__info__data__title
+  {
+    font-size: 14px;
+  }
+
+  .app__body .app__body__left .Indicator__popup .Indicator__info .Indicator__info__data>div .Indicator__info__data__value
+  {
+    font-size: 12px;
+  }
+
+
+  .app__body .app__body__left .chart__container .chart__container__stock__options .chart__options
+  {
+    height: 40px;
+  }
+
+  .app__body .app__body__left .chart__container .chart__container__stock__options .chart__options .chart__option__block
+  {
+    padding: 0px 15px;
+    font-size: 14px;
+  }
+  
+  .app__body .app__body__left .chart__container .chart__container__stock__options .chart__options .chart__option__block img
+  {
+    width: 28px;
+  }
+
+  .app__body .app__body__left .chart__container .chart__container__stock__options .chart__options .chart__option__block span#chart__type__icon
+  {
+    width: 18px;
+  }
+
+
+  .app__body .app__body__left .chart__container .chart__container__stock__options .chart__options .chart__stock__name
+  {
+    padding: 0 50px;
+    font-size: 16px;
+  }
+
+  .app__body .app__body__left .chart__container .chart__container__stock__options .chart__options .chart__option__block .stock__chart__types
+  {
+    width: 200px;
+    padding: 5px 0;
+  }
+
+  .app__body .app__body__left .chart__container .chart__container__stock__options .chart__options .chart__option__block .stock__chart__types>div
+  {
+    padding: 5px 0 5px 10px;
+    font-size: 14px;
+  }
+
+
+  .app__body .app__body__left .chart__container .chart__container__stock__options .chart__options .chart__option__block .stock__chart__types>div span
+  {
+    margin-left: 10px;
+  }
+
+  .app__body .app__body__left .chart__container .chart__container__stock__options .chart__options .chart__option__block .stock__chart__types>div img
+  {
+    width: 20px;
+  }
+
+  .app__body .app__body__left .chart__container .chart__container__stock__options .chart__options .chart__option__block #chart__type__icon
+  {
+    height: 18px;
+  }
+
+  .app__body .app__body__left .chart__container .stock__info .stock__details
+  {
+    display: flex;
+  }
+
+  .app__body .app__body__left .chart__container .stock__info .stock__details p
+  {
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .app__body .app__body__left .chart__container .stock__info .stock__price__details p span
+  {
+    font-size: 30px;
+  }
+
+  .app__body .app__body__left .chart__container .stock__info .stock__price__details p span.price__decimals
+  {
+    font-size: 14px;
+  }
+
+  .app__body .app__body__left .chart__container .stock__info .stock__price__details p span.stock__performance
+  {
+    font-size: 14px;
+  }
+
+  .app__body .app__body__left .chart__container .stock__info .stock__price__details p span.clock
+  {
+    font-size: 14px;
+  }
+
+  .app__body .app__body__left .chart__container .stock__info .stock__price__details
+  {
+    font-size: 14px;
+  }
+
+  .app__body .app__body__left .chart__container .stock__info .stock__purchase>div
+  {
+    font-size: 14px;
+    padding: 5px 25px;
+  }
+
+
+  .app__body .app__body__left .chart__container .stock__chart
+  {
+    height: 93%;
+    width: 100%;
+  }
+
+
+  .app__body .app__body__left .chart__container .chart__range .chart__range__value
+  {
+    font-size: 14px;
+    margin: 0 15px;
+  }
+
+
+  .app__body .app__body__left .chart__container .chart__zoom
+  {
+    position: absolute;
+    right: 2%;
+    bottom: 2%;
+    z-index: 100;
+  }
+
+  .app__body .app__body__left .key__statistics
+  {
+    width: 100%;
+    height: 38%;
+    padding: 10px 5px 5px 30px;
+  }
+
+  .app__body .app__body__left .key__statistics.key__statistics__zoom
+  {
+    height: 15%;
+    border-radius: 0px;
+  }
+
+
+  .app__body .app__body__left .key__statistics .ks__container
+  {
+    width: 100%;
+    height: 90%;
+  }
+
+
+
+  .app__body .app__body__left .key__statistics .ks__container .ks__container__half .ks__slot .statistics .ks__name
+  {
+    font-size: 14px;
+    color: #404040;
+    font-weight: 600;
+  }
+
+  .app__body .app__body__left .key__statistics .ks__container .ks__container__half .ks__slot .statistics .ks__value
+  {
+    font-size: 12px;
+    color: #404040;
+    font-weight: 500;
+  }
+
+  .app__body .app__body__left .key__statistics .ks__container .ks__container__full .ks__slot .statistics .ks__name
+  {
+    font-size: 12px;
+    color: #404040;
+    font-weight: 600;
+  }
+
+  .app__body .app__body__left .key__statistics .ks__container .ks__container__full .ks__slot .statistics .ks__value
+  {
+    font-size: 10px;
+    color: #404040;
+    font-weight: 500;
+  }
+
+  .app__body .app__body__left .key__statistics .ks__container .ks__container__full .ks__slot .statistics
+  {
+    margin: 3px 0;
+  }
+
+  .app__body .app__body__right
+  {
+    width: 30%;
+    height: 98%;
+    display: none;
+  }
+
+  .app__body .app__body__right.app__body__right__zoom
+  {
+    width: 0%;
+    display: none;
+  }
+
+
+  /*app__footer*/
+  .app__footer
+  {
+    width: 100%;
+    height: 5vh;
+    background-color: #00a0e3;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+  }
+
+  .app__footer.app__footer__zoom
+  {
+    height: 0;
+    display: none;
+  }
+
+  .app__footer span
+  {
+    font-size: 14px;
+    color: #ffffff;
+    margin: 0 20px;
+    font-weight: 600;
+    cursor: pointer;
+  }
 }
