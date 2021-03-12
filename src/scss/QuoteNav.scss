@@ -1,0 +1,66 @@
+:root{
+  --QuoteNav-row-color : #2baae0;
+  --QuoteNav-row-border-radius : 20px;
+}
+
+// nav active/hover effect (default active-nav-0)
+.active-nav-0{
+  // text-decoration-line: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 2px;
+  color: var(--QuoteNav-row-color);
+}
+
+.active-nav-1{
+  border-radius: 20px;
+  background-color: var(--QuoteNav-row-color); 
+  color: white;
+}
+// nav close
+
+
+.Financial-index{
+  border: 2px solid var(--QuoteNav-row-color);
+  border-radius: var(--QuoteNav-row-border-radius) ;
+  font-size: 13px;
+  padding : 5px;
+}
+
+
+// 
+.financial-fields-annual-quartly , .financial-fields{
+  margin-left:0;
+  padding: 5px 5px;
+  button{
+    font-weight: bold;
+    font-size: 15px;
+    width : 80px;
+    border: none;
+    border-radius: var(--QuoteNav-row-border-radius);
+  }
+}
+.annual-quartly-active{
+ button{
+  background-color:  var(--QuoteNav-row-color);
+  color: whitesmoke;
+ }
+}
+
+.financial-fields{
+  margin: 0;
+  padding: 0;
+  button{
+    font-size: 12px;
+    margin: 0 2px;
+    width: auto;
+    padding: 3px 5px;
+    background-color: whitesmoke;
+    border:2px solid var(--QuoteNav-row-color);
+  }
+}
+.financial-fields-active{
+    button{
+      background-color: var(--QuoteNav-row-color);
+      color: whitesmoke;
+    }
+}

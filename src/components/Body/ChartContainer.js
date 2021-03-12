@@ -255,8 +255,12 @@ export class ChartContainer extends React.Component {
         if(!this.state.indicatorOpen)
         {
             $('.Indicator__popup').addClass('active');
+            $('.Compare__popup').removeClass('active');
+            $('.Interactive__popup').removeClass('active');
             this.setState({
-                indicatorOpen : true
+                indicatorOpen : true,
+                compareOpen : false,
+                interactiveOpen : false
             });
         }
     }
@@ -302,8 +306,13 @@ export class ChartContainer extends React.Component {
         if(!this.state.compareOpen)
         {
             $('.Compare__popup').addClass('active');
+            $('.Interactive__popup').removeClass('active');
+            $('.Indicator__popup').removeClass('active');
+
             this.setState({
-                compareOpen : true
+                compareOpen : true,
+                indicatorOpen : false,
+                interactiveOpen : false
             });
         }
     }
@@ -324,8 +333,12 @@ export class ChartContainer extends React.Component {
         if(!this.state.interactiveOpen)
         {
             $('.Interactive__popup').addClass('active');
+            $('.Indicator__popup').removeClass('active');
+            $('.Compare__popup').removeClass('active');
             this.setState({
-                interactiveOpen : true
+                interactiveOpen : true,
+                compareOpen : false,
+                indicatorOpen : false
             });
         }
     }
@@ -356,8 +369,6 @@ export class ChartContainer extends React.Component {
         console.log('zoom');
         if(this.state.zoom)
         {
-
-
             $('.app__header').removeClass('app__header__zoom');
             $('.app__body').removeClass('app__body__zoom');
             $('.app__footer').removeClass('app__footer__zoom');
@@ -368,6 +379,7 @@ export class ChartContainer extends React.Component {
             $('.app__body__top').removeClass('app__body__top__zoom');
             $('.app__body__bottom').removeClass('app__body__bottom__zoom');
             $('.chart__options').removeClass('active');
+            $('.cash__position').removeClass('cash__position__zoom');
             $('.ks__container__full').css('display','none');
             $('.ks__container__half').css('display','flex');
         
@@ -380,8 +392,6 @@ export class ChartContainer extends React.Component {
         }
         else
         {
-
-
             $('.app__header').addClass('app__header__zoom');
             $('.app__body').addClass('app__body__zoom');
             $('.app__footer').addClass('app__footer__zoom');
@@ -391,6 +401,7 @@ export class ChartContainer extends React.Component {
             $('.app__body__right').addClass('app__body__right__zoom');
             $('.app__body__top').addClass('app__body__top__zoom');
             $('.app__body__bottom').addClass('app__body__bottom__zoom');
+            $('.cash__position').addClass('cash__position__zoom');
             $('.chart__options').addClass('active');
             $('.ks__container__full').css('display','flex');
             $('.ks__container__half').css('display','none');

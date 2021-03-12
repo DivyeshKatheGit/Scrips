@@ -37,6 +37,15 @@ export class CashPosition extends React.Component {
                         <ShareProfile code="NSE:RELIANCE" name="Reliance Industries Ltd." shares="1" value="2,100.00" change="1.32"/>
                         <ShareProfile code="NSE:RELIANCE" name="Reliance Industries Ltd." shares="1" value="2,100.00" change="1.32"/>
                         <ShareProfile code="NSE:RELIANCE" name="Reliance Industries Ltd." shares="1" value="2,100.00" change="1.32"/>
+                        <ShareProfile code="NSE:RELIANCE" name="Reliance Industries Ltd." shares="1" value="2,100.00" change="1.32"/>
+                        <ShareProfile code="NSE:RELIANCE" name="Reliance Industries Ltd." shares="1" value="2,100.00" change="-1.32"/>
+                        <ShareProfile code="NSE:RELIANCE" name="Reliance Industries Ltd." shares="1" value="2,100.00" change="1.32"/>
+                        <ShareProfile code="NSE:RELIANCE" name="Reliance Industries Ltd." shares="1" value="2,100.00" change="1.32"/>
+                        <ShareProfile code="NSE:RELIANCE" name="Reliance Industries Ltd." shares="1" value="2,100.00" change="-1.32"/>
+                        <ShareProfile code="NSE:RELIANCE" name="Reliance Industries Ltd." shares="1" value="2,100.00" change="1.32"/>
+                        <ShareProfile code="NSE:RELIANCE" name="Reliance Industries Ltd." shares="1" value="2,100.00" change="1.32"/>
+                        <ShareProfile code="NSE:RELIANCE" name="Reliance Industries Ltd." shares="1" value="2,100.00" change="-1.32"/>
+                        <ShareProfile code="NSE:RELIANCE" name="Reliance Industries Ltd." shares="1" value="2,100.00" change="1.32"/>
                     </div>
                 </div>
             </div>

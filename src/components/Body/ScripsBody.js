@@ -7,6 +7,7 @@ import KeyStatistics from './KeyStatistics';
 import TopStocks from './TopStocks';
 import { timeParse } from "d3-time-format";
 import MSFTArray from '../../data/MSFT';
+import { BusinessNews } from './BusinessNews/BusinessNews';
 
 class ScripsBody extends React.Component
 {
@@ -80,7 +81,7 @@ class ScripsBody extends React.Component
                         <div className="bn__title active" onClick={this.openNews.bind(this)}><p>Business News</p> <span>&#8673;</span></div>
                         <div className="bn__close" onClick={this.closeNews.bind(this)}><img src={Close} alt="x"/></div>
                         <div className="business__news__content">
-                            <h1 style={{textAlign : 'center'}}>News Section</h1>
+                            <BusinessNews />
                         </div>
                     </div>
                 </div>

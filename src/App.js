@@ -1,3 +1,4 @@
+import './scss/index.scss';
 import './css/App.css';
 import ScripsHeader from './components/Header/ScripsHeader';
 import ScripsBody from './components/Body/ScripsBody';
