@@ -4,6 +4,7 @@ import { Overview } from './Overview';
 import { Financials } from './Financials/Financials';
 import { FinanceRight } from './Financials/FinanceRight';
 import { Technicals } from "./Technicals";
+import {Valuation} from './Valuation';
 import { Feed } from "./Feed";
 
 class BusinessNews extends React.PureComponent {
@@ -45,7 +46,7 @@ class BusinessNews extends React.PureComponent {
                                 </div>
 
                             </>}
-                            {/* {field === 'valuation' && <Valuation />} */}
+                            {field === 'valuation' && <Valuation />}
                             {field === 'technicals' && <Technicals />}
                             {field === 'feed' && <Feed />}
                         </div>
