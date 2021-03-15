@@ -1,14 +1,19 @@
 const mysql = require("mysql") ,  express = require('express') , cors = require('cors')
-const app = express()
+const app = express();
+const dotenv = require('dotenv');
 
-app.use(cors())
+app.use(cors());
+
+dotenv.config({
+    path : '../config.env'
+});
 
 
 var conn = mysql.createConnection({
-    host : 'yottol-rds.copzpeo4bk3d.ap-south-1.rds.amazonaws.com',
-    user : 'root',
-    password : 'BxCdkbmW8gVG1Cj5jpA0',
-    database : 'yottol-stocks'
+    host : process.env.HOST,
+    user : process.env.USER,
+    password : process.env.PASSWORD,
+    database : process.env.DATABASE
 });
 
 const tableTypes = {
