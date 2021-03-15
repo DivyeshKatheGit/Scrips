@@ -1,17 +1,19 @@
 {
   "files": {
-    "main.css": "/Scrips/static/css/main.3fc0770c.chunk.css",
-    "main.js": "/Scrips/static/js/main.7fb88b15.chunk.js",
-    "main.js.map": "/Scrips/static/js/main.7fb88b15.chunk.js.map",
-    "runtime-main.js": "/Scrips/static/js/runtime-main.be314de2.js",
-    "runtime-main.js.map": "/Scrips/static/js/runtime-main.be314de2.js.map",
-    "static/js/2.b88b2cea.chunk.js": "/Scrips/static/js/2.b88b2cea.chunk.js",
-    "static/js/2.b88b2cea.chunk.js.map": "/Scrips/static/js/2.b88b2cea.chunk.js.map",
-    "static/js/3.6d2b5a54.chunk.js": "/Scrips/static/js/3.6d2b5a54.chunk.js",
-    "static/js/3.6d2b5a54.chunk.js.map": "/Scrips/static/js/3.6d2b5a54.chunk.js.map",
+    "main.css": "/Scrips/static/css/main.4093fd8c.chunk.css",
+    "main.js": "/Scrips/static/js/main.5fa380b2.chunk.js",
+    "main.js.map": "/Scrips/static/js/main.5fa380b2.chunk.js.map",
+    "runtime-main.js": "/Scrips/static/js/runtime-main.71eab604.js",
+    "runtime-main.js.map": "/Scrips/static/js/runtime-main.71eab604.js.map",
+    "static/css/2.54bc7213.chunk.css": "/Scrips/static/css/2.54bc7213.chunk.css",
+    "static/js/2.3b29c4db.chunk.js": "/Scrips/static/js/2.3b29c4db.chunk.js",
+    "static/js/2.3b29c4db.chunk.js.map": "/Scrips/static/js/2.3b29c4db.chunk.js.map",
+    "static/js/3.414f0093.chunk.js": "/Scrips/static/js/3.414f0093.chunk.js",
+    "static/js/3.414f0093.chunk.js.map": "/Scrips/static/js/3.414f0093.chunk.js.map",
     "index.html": "/Scrips/index.html",
-    "static/css/main.3fc0770c.chunk.css.map": "/Scrips/static/css/main.3fc0770c.chunk.css.map",
-    "static/js/2.b88b2cea.chunk.js.LICENSE.txt": "/Scrips/static/js/2.b88b2cea.chunk.js.LICENSE.txt",
+    "static/css/2.54bc7213.chunk.css.map": "/Scrips/static/css/2.54bc7213.chunk.css.map",
+    "static/css/main.4093fd8c.chunk.css.map": "/Scrips/static/css/main.4093fd8c.chunk.css.map",
+    "static/js/2.3b29c4db.chunk.js.LICENSE.txt": "/Scrips/static/js/2.3b29c4db.chunk.js.LICENSE.txt",
     "static/media/OHLC.a0e591fc.svg": "/Scrips/static/media/OHLC.a0e591fc.svg",
     "static/media/area.67100664.svg": "/Scrips/static/media/area.67100664.svg",
     "static/media/bar.4440f9a7.svg": "/Scrips/static/media/bar.4440f9a7.svg",
@@ -40,9 +42,10 @@
     "static/media/zoom.b071459a.svg": "/Scrips/static/media/zoom.b071459a.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.be314de2.js",
-    "static/js/2.b88b2cea.chunk.js",
-    "static/css/main.3fc0770c.chunk.css",
-    "static/js/main.7fb88b15.chunk.js"
+    "static/js/runtime-main.71eab604.js",
+    "static/css/2.54bc7213.chunk.css",
+    "static/js/2.3b29c4db.chunk.js",
+    "static/css/main.4093fd8c.chunk.css",
+    "static/js/main.5fa380b2.chunk.js"
   ]
 }
