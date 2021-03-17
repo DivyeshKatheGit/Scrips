@@ -1,6 +1,5 @@
 import React from 'react';
 import { Row, Col, InputNumber, Slider } from 'rsuite';
-import 'rsuite/dist/styles/rsuite-default.css';
 import AI_ML_GENIE_LOGO from "../../../assets/icons/AIML.png";
 
 class CustomSlider extends React.Component {

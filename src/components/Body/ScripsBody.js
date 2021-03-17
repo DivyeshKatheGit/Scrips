@@ -8,6 +8,7 @@ import TopStocks from './TopStocks';
 import { timeParse } from "d3-time-format";
 import MSFTArray from '../../data/MSFT';
 import { BusinessNews } from './BusinessNews/BusinessNews';
+import 'rsuite/dist/styles/rsuite-default.css';
 
 class ScripsBody extends React.Component
 {
