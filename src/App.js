@@ -1,5 +1,5 @@
-import './scss/index.scss';
 import './css/App.css';
+import './scss/index.scss';
 import ScripsHeader from './components/Header/ScripsHeader';
 import ScripsBody from './components/Body/ScripsBody';
 import ScripsFooter from './components/Footer/ScripsFooter';
