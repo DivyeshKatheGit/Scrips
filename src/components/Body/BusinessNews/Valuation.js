@@ -1,7 +1,6 @@
 import React from 'react';
 import { Row, Col, InputNumber, Slider } from 'rsuite';
 import $ from 'jquery';
-import 'rsuite/dist/styles/rsuite-default.css';
 
 function EarningValuation({ title, value, max, min, changeSliderValue}) {
 
