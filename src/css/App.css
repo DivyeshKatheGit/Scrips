@@ -29,6 +29,11 @@
   overflow: hidden;
 }
 
+.app p
+{
+  margin: 0!important;
+}
+
 /*app header*/
 .app__header
 {
