@@ -13,12 +13,16 @@ function EarningValuation({ title, value, max, min, changeSliderValue}) {
     min = Nu(min) || 0;
     const [val, setValue] = React.useState(value);
 
+    let stop = ((Math.ceil(val)-min)/(max-min))*100;
+
+    let back = `linear-gradient(to right,#00a0e3 0%,#00a0e3 ${stop}%,#ecf0f1 ${stop}%,#ecf0f1 100%)`;
+
     return (
         <>
             <Row style={{ marginTop: 3, marginRight: 0, paddingRight: 0 , paddingLeft : '10px' }}>
                 {title && <p style={{ padding: 6 }}>{title}</p>}
                 <Col md={14} sm={20} xs={13}>
-                    <div style={{ padding: 2 }}>
+                    <div style={{  }}>
                         {/* <Slider
                             progress
                             min={min}
@@ -30,7 +34,16 @@ function EarningValuation({ title, value, max, min, changeSliderValue}) {
                             // onMouseUp={e => {changeSliderValue(Nu(val))}}
                             // onMouseDown={e => {console.log('down')}}
                         /> */}
-                        <input type="range" min={min} max={max} value={val} onTouchEnd={e => {console.log('up');changeSliderValue(Nu(val))}} onMouseUp={e => {console.log('up');changeSliderValue(Nu(val))}} onChange={e=> {console.log('change') ; setValue(e.target.value)}} style={{width : '200px'}}/>
+                        <input 
+                            className="valuation__slider" 
+                            type="range" 
+                            min={min} 
+                            max={max} 
+                            value={val} 
+                            style={{background : back}}
+                            onTouchEnd={e => {changeSliderValue(Nu(val))}} 
+                            onMouseUp={e => {changeSliderValue(Nu(val))}} 
+                            onChange={e=> {setValue(e.target.value)}}/>
                     </div>
                 </Col>
                 <Col md={2} sm={2} xs={7} style={{ width: 100 }}>
@@ -506,8 +519,8 @@ class Valuation extends React.PureComponent{
         const LBoundMFactor = 0.5;
 
         let IRatio = ValFactors['IRDFR'];
-        let HBound = val*HBoundMFactor*IRatio;
-        let LBound = val*LBoundMFactor*IRatio;
+        let HBound = parseFloat((val*HBoundMFactor*IRatio).toFixed(2));
+        let LBound = parseFloat((val*LBoundMFactor*IRatio).toFixed(2));
 
         console.log(IRatio,HBound,LBound);
 
