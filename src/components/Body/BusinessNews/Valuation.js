@@ -1,9 +1,12 @@
 import React from 'react';
 import { Row, Col, InputNumber, Slider } from 'rsuite';
 import $ from 'jquery';
+// import 'rsuite/dist/styles/rsuite-default.css';
 
 function EarningValuation({ title, value, max, min, changeSliderValue}) {
 
+
+   
 
     value = Nu(value); 
     max = Nu(max) || value + 100; 
@@ -16,7 +19,7 @@ function EarningValuation({ title, value, max, min, changeSliderValue}) {
                 {title && <p style={{ padding: 6 }}>{title}</p>}
                 <Col md={14} sm={20} xs={13}>
                     <div style={{ padding: 2 }}>
-                        <Slider
+                        {/* <Slider
                             progress
                             min={min}
                             max={max}
@@ -24,9 +27,10 @@ function EarningValuation({ title, value, max, min, changeSliderValue}) {
                             // value={value}
                             onChange={value => { setValue(Nu(value)) }}
                             // onChange={val => { changeSliderValue(Nu(val)) }}
-                            onMouseUp={e => {changeSliderValue(Nu(val))}}
-                        />
-                        {/* <input type="range" min={min} max={max} value={value} onChange={e => changeSliderValue(Nu(e.target.value))}/> */}
+                            // onMouseUp={e => {changeSliderValue(Nu(val))}}
+                            // onMouseDown={e => {console.log('down')}}
+                        /> */}
+                        <input type="range" min={min} max={max} value={val} onTouchEnd={e => {console.log('up');changeSliderValue(Nu(val))}} onMouseUp={e => {console.log('up');changeSliderValue(Nu(val))}} onChange={e=> {console.log('change') ; setValue(e.target.value)}} style={{width : '200px'}}/>
                     </div>
                 </Col>
                 <Col md={2} sm={2} xs={7} style={{ width: 100 }}>
@@ -34,9 +38,7 @@ function EarningValuation({ title, value, max, min, changeSliderValue}) {
                         min={min}
                         max={max}
                         value={val}
-                        // value={value}
                         onChange={value => { setValue(Nu(value)) }}
-                        // onChange={val => { changeSliderValue(Nu(val)) }}
                         onKeyDown={e => {
                             if(e.key === 'Enter'){
                                 console.log('enter');
@@ -251,7 +253,7 @@ class Valuation extends React.PureComponent{
     async setValuationFactor()
     {
 
-        console.log('Valuation Factor Start');
+        // console.log('Valuation Factor Start');
         const HBoundMFactor = 2;
         const LBoundMFactor = 0.5;
 
@@ -275,14 +277,14 @@ class Valuation extends React.PureComponent{
             ValuationFactors : VObj
         });
 
-        console.log('Valuation Factor End');
+        // console.log('Valuation Factor End');
 
     }
 
     async setEarningValuation()
     {
 
-        console.log('Earning Valuation Start');
+        // console.log('Earning Valuation Start');
         const maxFactor = 3;
         const ValFactors = this.state.ValuationFactors;
         // console.log(ValFactors);
@@ -331,13 +333,13 @@ class Valuation extends React.PureComponent{
             EarningValuation : EarningVal
         });
 
-        console.log('Earning Valuation End');
+        // console.log('Earning Valuation End');
     }
 
     async setPriceBandFactors()
     {
 
-        console.log('Price Band Factors Start');
+        // console.log('Price Band Factors Start');
 
         const ValFactors = this.state.ValuationFactors;
 
@@ -357,19 +359,19 @@ class Valuation extends React.PureComponent{
             PriceBandEPSFactors : PBObj
         });
 
-        console.log('Price Band End');
+        // console.log('Price Band End');
     }
 
     async setPriceUpLowBounds()
     {
 
-        console.log('Price Up Low Bounds Start');
+        // console.log('Price Up Low Bounds Start');
         
         let PULarr = [600];
         let ValFactors = this.state.ValuationFactors;
         let PriceBands = this.state.PriceBandEPSFactors;
 
-        console.log(PriceBands);
+        // console.log(PriceBands);
         
         for(let i=1;i<=5;i++)
         {
@@ -385,14 +387,14 @@ class Valuation extends React.PureComponent{
             PriceUpLowBounds : PULarr
         });
 
-        console.log('Price Up Low Bounds End');
+        // console.log('Price Up Low Bounds End');
 
     }
 
     async setEPSFactor()
     {
 
-        console.log('EPS Factor Start');
+        // console.log('EPS Factor Start');
 
         let ValFactors = this.state.ValuationFactors;
         let EPS = ValFactors['NPEPSF'];
@@ -421,13 +423,13 @@ class Valuation extends React.PureComponent{
             ValuationConfidence : VC
         });
 
-        console.log('EPS Factor End');
+        // console.log('EPS Factor End');
 
     }
 
     async setAnnualReturns()
     {
-        console.log('Annual Returns Start');
+        // console.log('Annual Returns Start');
         
         let PriceBounds = this.state.PriceUpLowBounds;
         let Base = typeof PriceBounds[0] === 'number' ? PriceBounds[0] : '';
@@ -443,7 +445,7 @@ class Valuation extends React.PureComponent{
             let TYAR = parseFloat(((Math.pow((1+ThreeY),(1/3))-1)*100).toFixed(2));
             let FYAR = parseFloat(((Math.pow((1+FiveY),(1/3))-1)*100).toFixed(2));
 
-            console.log(ThreeY,FiveY,TYAR,FYAR);
+            // console.log(ThreeY,FiveY,TYAR,FYAR);
 
             this.setState({
                 ThreeYearReturn : TYAR,
@@ -458,7 +460,7 @@ class Valuation extends React.PureComponent{
             });
         }
 
-        console.log('Annual Returns End');
+        // console.log('Annual Returns End');
 
     }
 
