@@ -21,21 +21,29 @@ function EarningValuation({ title, value, max, min, changeSliderValue}) {
                             progress
                             min={min}
                             max={max}
-                            // value={val}
-                            value={value}
-                            // onChange={value => { setValue(Nu(value)) }}
-                            onChange={val => { changeSliderValue(Nu(val)) }}
+                            value={val}
+                            // value={value}
+                            onChange={value => { setValue(Nu(value)) }}
+                            // onChange={val => { changeSliderValue(Nu(val)) }}
+                            onMouseUp={e => {changeSliderValue(Nu(val))}}
                         />
+                        {/* <input type="range" min={min} max={max} value={value} onChange={e => changeSliderValue(Nu(e.target.value))}/> */}
                     </div>
                 </Col>
                 <Col md={2} sm={2} xs={7} style={{ width: 100 }}>
                     <InputNumber
                         min={min}
                         max={max}
-                        // value={val}
-                        value={value}
-                        // onChange={value => { setValue(Nu(value)) }}
-                        onChange={val => { changeSliderValue(Nu(val)) }}
+                        value={val}
+                        // value={value}
+                        onChange={value => { setValue(Nu(value)) }}
+                        // onChange={val => { changeSliderValue(Nu(val)) }}
+                        onKeyDown={e => {
+                            if(e.key === 'Enter'){
+                                console.log('enter');
+                                changeSliderValue(Nu(val));
+                            }
+                        }}
                         size="xs"
                         placeholder="xs"
                     />
@@ -75,9 +83,11 @@ function PriceUpAndLowBounds(props) {
                             return (
                                 <>
                                     <div className={`col price__bounds__outer`} key={i + Math.random() * 6} style={{padding : '0px'}}>
-                                        <div style={{fontSize : '14px' , fontWeight : 700 , marginBottom : startArr[i]+20}} className="price__bounds__inner">
+                                        <div style={{fontSize : '14px' , fontWeight : 700 , marginBottom : startArr[i]+20+'px'}} className="price__bounds__inner">
                                             <span className="bound__label label__up">{t !== 'object' ? p : p[1]}</span>
-                                            <div style={{ height: heightArr[i]}} className="PriceUpAndLowBounds"></div>
+                                            <div style={{ height: heightArr[i]}} className="PriceUpAndLowBounds">
+                                                <div className="pul__inner"></div>
+                                            </div>
                                             <span className="bound__label label__down">{t === 'object' && p[0]}</span>
                                         </div>
                                     </div>
@@ -91,7 +101,7 @@ function PriceUpAndLowBounds(props) {
     }
     if (props) {
 
-        console.log(props);
+        // console.log(props);
         let maxArea = $('.price__bounds').height()-50;
         let maxValue = 0;
         let ratioFactor;
@@ -150,20 +160,14 @@ function PriceUpAndLowBounds(props) {
     return null
 }
 
-class CustomSlider extends React.Component {
-    constructor(props) {
-        super(props);
-        console.log('hello');
-        console.log(props.ValuationConfidence);
+function CustomSlider(props){
 
-        this.state = {
-            value : props.ValuationConfidence
-        }
-    }
-    render() {
-            const printText = this.props.printText || ['Quite High', 'High', 'Inconclusive', 'Low', 'Quite Low'],
-            steps = printText.length,
-            { value } = this.state.value;
+        const printText = props.printText || ['Quite High', 'High', 'Inconclusive', 'Low', 'Quite Low'],
+        steps = printText.length,
+        value = props.ValuationConfidence;
+        // console.log('custom',value);
+        // console.log(props);
+           
         return (
             <div className="pt-2">
                 <div style={{ height: 300 }}>
@@ -183,13 +187,12 @@ class CustomSlider extends React.Component {
                 </div>
             </div>
         );
-    }
 }
 
 const DefaultFactors = {
     'TTMNP' : 100.0,
     'TTMEPS' : 15.0,
-    'NPG' : 36.0,
+    'NPG' : 20.0,
     'EPSG' : 20.0,
     'EPSF' : 1.80,
     'ROETTM' : 25.0,
@@ -214,12 +217,14 @@ class Valuation extends React.PureComponent{
         this.setEarningValuation = this.setEarningValuation.bind(this);
         this.setPriceBandFactors = this.setPriceBandFactors.bind(this);
         this.setPriceUpLowBounds = this.setPriceUpLowBounds.bind(this);
+        this.setAnnualReturns = this.setAnnualReturns.bind(this);
         this.changeNPGValue = this.changeNPGValue.bind(this);
         this.changeEPSGValue = this.changeEPSGValue.bind(this);
         this.changeROEValue = this.changeROEValue.bind(this);
         this.changeEMHBValue = this.changeEMHBValue.bind(this);
         this.changeEMLBValue = this.changeEMLBValue.bind(this);
         this.changeIRDFValue = this.changeIRDFValue.bind(this);
+        this.updateStates = this.updateStates.bind(this);
         this.state = {
             EarningValuation: [],
             PriceUpLowLabels: PriceUpLowLabels,
@@ -227,7 +232,9 @@ class Valuation extends React.PureComponent{
             ValuationFactors : {},
             PriceBandEPSFactors : {},
             PriceUpLowBounds : [],
-            ValuationConfidence : 0
+            ValuationConfidence : 0,
+            ThreeYearReturn : '',
+            FiveYearReturn : ''
         }
     }
 
@@ -235,18 +242,17 @@ class Valuation extends React.PureComponent{
     {
         this.setValuationFactor()
         .then(()=>{
-            this.setEarningValuation();
-            this.setPriceBandFactors();
-            this.setPriceUpLowBounds();
-            this.setEPSFactor();
+            this.updateStates();
         });
 
     }
 
+    //state setters
+
     async setValuationFactor()
     {
 
-        console.log('set initial');
+        console.log('Valuation Factor Start');
         const HBoundMFactor = 2;
         const LBoundMFactor = 0.5;
 
@@ -270,11 +276,14 @@ class Valuation extends React.PureComponent{
             ValuationFactors : VObj
         });
 
+        console.log('Valuation Factor End');
+
     }
 
-    setEarningValuation()
+    async setEarningValuation()
     {
 
+        console.log('Earning Valuation Start');
         const maxFactor = 3;
         const ValFactors = this.state.ValuationFactors;
         // console.log(ValFactors);
@@ -321,11 +330,18 @@ class Valuation extends React.PureComponent{
 
         this.setState({
             EarningValuation : EarningVal
-        })
+        });
+
+        console.log('Earning Valuation End');
     }
 
-    setPriceBandFactors()
+    async setPriceBandFactors()
     {
+
+        console.log('Price Band Factors Start');
+
+        const ValFactors = this.state.ValuationFactors;
+
         let SEPS = DefaultFactors['TTMEPS'];
 
         let PBObj = {
@@ -334,23 +350,28 @@ class Valuation extends React.PureComponent{
 
         for(let i=1;i<=5 ; i++)
         {
-            SEPS = parseFloat((SEPS * (1+(DefaultFactors['EPSG']/100))).toFixed(1));
+            SEPS = parseFloat((SEPS * (1+(ValFactors['EPSG']/100))).toFixed(1));
             PBObj['T'+i] = SEPS;
         }
 
         this.setState({
             PriceBandEPSFactors : PBObj
         });
+
+        console.log('Price Band End');
     }
 
-    setPriceUpLowBounds()
+    async setPriceUpLowBounds()
     {
 
+        console.log('Price Up Low Bounds Start');
+        
         let PULarr = [600];
         let ValFactors = this.state.ValuationFactors;
         let PriceBands = this.state.PriceBandEPSFactors;
-        
 
+        console.log(PriceBands);
+        
         for(let i=1;i<=5;i++)
         {
             let bounds = [];
@@ -364,128 +385,16 @@ class Valuation extends React.PureComponent{
         this.setState({
             PriceUpLowBounds : PULarr
         });
+
+        console.log('Price Up Low Bounds End');
+
     }
 
-    changeNPGValue(val)
+    async setEPSFactor()
     {
-        let ValFactors = this.state.ValuationFactors;
 
-        let EPS = parseFloat((val/ValFactors['EPSG']).toFixed(1));
+        console.log('EPS Factor Start');
 
-        ValFactors['NPG'] = val;
-        ValFactors['NPEPSF'] = EPS;
-
-        this.setState({
-            ValuationFactors : ValFactors
-        },()=>{
-            this.setEarningValuation();
-            this.setEPSFactor();
-        });
-    }
-
-    changeEPSGValue(val)
-    {
-        let ValFactors = this.state.ValuationFactors;
-
-        let EPS = parseFloat((ValFactors['NPG']/val).toFixed(1));
-
-        ValFactors['EPSG'] = val;
-        ValFactors['NPEPSF'] = EPS;
-
-        this.setState({
-            ValuationFactors : ValFactors
-        },()=>{
-            this.setEarningValuation();
-            this.setEPSFactor();
-        });
-    }
-
-    changeROEValue(val)
-    {
-        let ValFactors = this.state.ValuationFactors;
-
-        const HBoundMFactor = 2;
-        const LBoundMFactor = 0.5;
-
-        let IRatio = ValFactors['IRDFR'];
-        let HBound = val*HBoundMFactor*IRatio;
-        let LBound = val*LBoundMFactor*IRatio;
-
-        console.log(IRatio,HBound,LBound);
-
-        ValFactors['ROE'] = val;
-        ValFactors['EMHB'] = HBound;
-        ValFactors['EMLB'] = LBound;
-        // console.log(ValFactors);
-        this.setState({
-            ValuationFactors : ValFactors
-        },()=>{
-            this.setEarningValuation();
-            this.setPriceUpLowBounds();
-        });
-
-        // console.log(this.state.ValuationFactors,this.state.EarningValuation);
-        
-        console.log(`ROE val ${val}`);
-    }
-
-    changeEMHBValue(val)
-    {
-        let ValFactors = this.state.ValuationFactors;
-        ValFactors['EMHB'] = val;
-
-        this.setState({
-            ValuationFactors : ValFactors
-        },()=>{
-            this.setEarningValuation();
-            this.setPriceUpLowBounds();
-        });
-    }
-
-    changeEMLBValue(val)
-    {
-        let ValFactors = this.state.ValuationFactors;
-        ValFactors['EMLB'] = val;
-
-        this.setState({
-            ValuationFactors : ValFactors
-        },()=>{
-            this.setEarningValuation();
-            this.setPriceUpLowBounds();
-        });
-    }
-
-    changeIRDFValue(val)
-    {
-        let ValFactors = this.state.ValuationFactors;
-
-        let ROE = ValFactors['ROE'];
-
-        const HBoundMFactor = 2;
-        const LBoundMFactor = 0.5;
-
-        let IRatio = parseFloat(1/val)/(1/DefaultFactors['DFP']);
-
-        console.log(IRatio)
-
-        let HBound = parseFloat(ROE*HBoundMFactor*IRatio).toFixed(2);
-        let LBound = parseFloat(ROE*LBoundMFactor*IRatio).toFixed(2);
-
-        ValFactors['IRDF'] = val;
-        ValFactors['IRDFR'] = IRatio;
-        ValFactors['EMHB'] = HBound;
-        ValFactors['EMLB'] = LBound;
-
-        this.setState({
-            ValuationFactors : ValFactors
-        },()=>{
-            this.setEarningValuation();
-            this.setPriceUpLowBounds();
-        });
-    }
-
-    setEPSFactor()
-    {
         let ValFactors = this.state.ValuationFactors;
         let EPS = ValFactors['NPEPSF'];
         let VC = 0;
@@ -509,53 +418,254 @@ class Valuation extends React.PureComponent{
         {
             VC = 4;
         }
-
-        console.log(VC);
-
         this.setState({
             ValuationConfidence : VC
+        });
+
+        console.log('EPS Factor End');
+
+    }
+
+    async setAnnualReturns()
+    {
+        console.log('Annual Returns Start');
+        
+        let PriceBounds = this.state.PriceUpLowBounds;
+        let Base = typeof PriceBounds[0] === 'number' ? PriceBounds[0] : '';
+        // console.log(Base);
+        let num1 = 3;
+        let num2 = 5;
+        if(typeof Base  === 'number')
+        {
+            let ThreeY = parseFloat((((PriceBounds[num1][0]+PriceBounds[num1][1])/2)/Base));
+            let FiveY = parseFloat((((PriceBounds[num2][0]+PriceBounds[num2][1])/2)/Base));
+
+
+            let TYAR = parseFloat(((Math.pow((1+ThreeY),(1/3))-1)*100).toFixed(2));
+            let FYAR = parseFloat(((Math.pow((1+FiveY),(1/3))-1)*100).toFixed(2));
+
+            console.log(ThreeY,FiveY,TYAR,FYAR);
+
+            this.setState({
+                ThreeYearReturn : TYAR,
+                FiveYearReturn : FYAR
+            });
+
+        }
+        else{
+            this.setState({
+                ThreeYearReturn : '',
+                FiveYearReturn : ''
+            });
+        }
+
+        console.log('Annual Returns End');
+
+    }
+
+    //state changers
+
+    changeNPGValue(val)
+    {
+        let ValFactors = this.state.ValuationFactors;
+
+        let EPS = parseFloat((val/ValFactors['EPSG']).toFixed(1));
+
+        ValFactors['NPG'] = val;
+        ValFactors['NPEPSF'] = EPS;
+
+        this.setState({
+            ValuationFactors : ValFactors
+        },()=>{
+            this.updateStates();
+        });
+    }
+
+    changeEPSGValue(val)
+    {
+        let ValFactors = this.state.ValuationFactors;
+
+        let EPS = parseFloat((ValFactors['NPG']/val).toFixed(1));
+
+        ValFactors['EPSG'] = val;
+        ValFactors['NPEPSF'] = EPS;
+
+        this.setState({
+            ValuationFactors : ValFactors
+        },()=>{
+            this.updateStates();
+        });
+    }
+
+    changeROEValue(val)
+    {
+        let ValFactors = this.state.ValuationFactors;
+
+        const HBoundMFactor = 2;
+        const LBoundMFactor = 0.5;
+
+        let IRatio = ValFactors['IRDFR'];
+        let HBound = val*HBoundMFactor*IRatio;
+        let LBound = val*LBoundMFactor*IRatio;
+
+        console.log(IRatio,HBound,LBound);
+
+        ValFactors['ROE'] = val;
+        ValFactors['EMHB'] = HBound;
+        ValFactors['EMLB'] = LBound;
+        // console.log(ValFactors);
+        this.setState({
+            ValuationFactors : ValFactors
+        },()=>{
+            this.updateStates();
+        });
+
+        // console.log(this.state.ValuationFactors,this.state.EarningValuation);
+        
+        // console.log(`ROE val ${val}`);
+    }
+
+    changeEMHBValue(val)
+    {
+        let ValFactors = this.state.ValuationFactors;
+        ValFactors['EMHB'] = val;
+
+        this.setState({
+            ValuationFactors : ValFactors
+        },()=>{
+            this.updateStates();
+        });
+    }
+
+    changeEMLBValue(val)
+    {
+        let ValFactors = this.state.ValuationFactors;
+        ValFactors['EMLB'] = val;
+
+        this.setState({
+            ValuationFactors : ValFactors
+        },()=>{
+            this.updateStates();
+        });
+    }
+
+    changeIRDFValue(val)
+    {
+        let ValFactors = this.state.ValuationFactors;
+
+        let ROE = ValFactors['ROE'];
+
+        const HBoundMFactor = 2;
+        const LBoundMFactor = 0.5;
+
+        let IRatio = parseFloat(1/val)/(1/DefaultFactors['DFP']);
+
+        let HBound = parseFloat(ROE*HBoundMFactor*IRatio).toFixed(2);
+        let LBound = parseFloat(ROE*LBoundMFactor*IRatio).toFixed(2);
+
+        ValFactors['IRDF'] = val;
+        ValFactors['IRDFR'] = IRatio;
+        ValFactors['EMHB'] = HBound;
+        ValFactors['EMLB'] = LBound;
+
+        this.setState({
+            ValuationFactors : ValFactors
+        },()=>{
+            this.updateStates();
+        });
+    }
+
+
+    updateStates()
+    {
+        console.log('.......update start.......');
+        this.setEarningValuation().then(()=>{
+            this.setPriceBandFactors().then(()=>{
+                this.setPriceUpLowBounds().then(()=>{
+                    this.setEPSFactor().then(()=>{
+                        this.setAnnualReturns().then(()=>{
+                            console.log('.......update done......');
+                        });
+                    })
+                })
+            })
         });
     }
 
     render()
     {
 
-        const data = this.state.EarningValuation;        
-        return(
-            <>
-                <Row style={{paddingLeft:'35px'}}>
-                    <Col md={10}>
-                        <h5 style={{ fontWeight: 'bold', padding: 10 }}>Earnings Valuation</h5>
-                        {
+        const data = this.state.EarningValuation;
+        
+        if(DefaultFactors['TTMNP'] < 0 || DefaultFactors['TTMEPS'] < 0)
+        {
+            return(
+                <>
+                    <div className="container pl-5 pr-5" style={{color : '#00a0e3'}}>
+                        <Row className="p-5 text-center">
+                            <h4 className="mb-4">Fundamental valuation using standard methodologies is not possible as financials 
+                                of the company do not allow for such a valuation.
+                            </h4>
+                            <h4>Kindly use your own judgement in arriving at a value. </h4>
+                        </Row>
+                    </div>
+                    
+                </>
+            )
+        }
+        else
+        {
+            return(
+                <>
+                    <Row style={{paddingLeft:'35px'}}>
+                        <Col md={10}>
+                            <h5 style={{ fontWeight: 'bold', padding: 10 }}>Earnings Valuation</h5>
+                            {
+                                
+                                data.map((e, i) => {
+                                    if (typeof e == 'object' && !Array.isArray(e)) {
+                                        return <EarningValuation key={i + Math.random()} {...e} />
+                                    } else return null
+                                })
+                            }
+                            {/* <EarningValuation data={this.state.EarningValuation}/> */}
+                            <div style={{ padding: '20px 0 0 0',fontSize:'14px' }}>
+                                The above values have been set according to our estimates.<br />
+                                You may set them as necessary according to your views.
+                            </div>
+                        </Col>
+                        <Col md={10} lg={14}>
+                            <PriceUpAndLowBounds 
+                                labels={this.state.PriceUpLowLabels} 
+                                data={this.state.PriceUpLowBounds} 
+                                ValuationConfidence={this.state.ValuationConfidence}
+                            />
+                            <div className="mt-2" style={{ width : '70%' }}>
+                                <h6 style={{padding : '6px'}}>Annual Returns</h6>
+                                <div className="annual__returns">
+                                    <p>3 year potential Upside/ Downside</p>
+                                    <span>{this.state.ThreeYearReturn}%</span>
+                                </div>
+                                <div className="annual__returns">
+                                    <p>5 year potential Upside/ Downside</p>
+                                    <span>{this.state.FiveYearReturn}%</span>
+                                </div>
+                            </div>
                             
-                            data.map((e, i) => {
-                                if (typeof e == 'object' && !Array.isArray(e)) {
-                                    return <EarningValuation key={i + Math.random()} {...e} />
-                                } else return null
-                            })
-                        }
-                        {/* <EarningValuation data={this.state.EarningValuation}/> */}
-                        <div style={{ padding: '20px 0 0 0',fontSize:'14px' }}>
-                            The above values have been set according to our estimates.<br />
-                            You may set them as necessary according to your views.
-                        </div>
-                    </Col>
-                    <Col md={10} lg={14}>
-                        <PriceUpAndLowBounds 
-                            labels={this.state.PriceUpLowLabels} 
-                            data={this.state.PriceUpLowBounds} 
-                            ValuationConfidence={this.state.ValuationConfidence}
-                        />
-                        <div className="container mt-4 p-3" style={{ border: '1px solid black', borderRadius: 10 , marginLeft : 0 , width : '90%'}}>
-                            <p style={{fontSize : '16px' , fontWeight : 700}}>Valuation Methodology</p>
-                            <div style={{fontSize : '12px' , fontWeight : 500}}>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <div className="container m-auto mt-5 mb-5 p-3" style={{ border: '1px solid black', borderRadius: 10 , marginLeft : 0 , width : '90%'}}>
+                            <p style={{fontSize : '20px' , fontWeight : 700}}>Valuation Methodology</p>
+                            <div style={{fontSize : '14px' , fontWeight : 500}}>
                                 {(this.state.ValuationMethodology || []).map((e, i) => <div key={i + 9 + Math.random()}>{i + 1}.&nbsp;{e}</div>)}
                             </div>
                         </div>
-                    </Col>
-                </Row>
-            </>
-        )
+                    </Row>
+                </>
+            )
+        }
+        
     }
 }
 
